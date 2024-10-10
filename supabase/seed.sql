@@ -42,7 +42,7 @@ BEGIN
 
   -- start data for presets
   INSERT INTO presets (user_id, created_at, updated_at, sharing, include_profile_context, include_workspace_instructions, context_length, model, name, prompt, temperature, description, embeddings_provider) VALUES
-  ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'private', TRUE, TRUE, 4000, 'gpt-4-turbo-preview', 'Preset 1', 'Prompt 1', 0.5, 'Description for Preset 1', 'openai');
+  ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'private', TRUE, TRUE, 4000, 'Gemini', 'Preset 1', 'Prompt 1', 0.5, 'Description for Preset 1', 'google');
 
   -- Get preset id
   DECLARE
