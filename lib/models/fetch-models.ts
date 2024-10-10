@@ -1,5 +1,5 @@
 import { Tables } from "@/supabase/types"
-import { LLM, LLMID, OpenRouterLLM } from "@/types"
+import { LLM, LLMID, OpenRouterLLM, ModelProvider } from "@/types"
 import { toast } from "sonner"
 import { LLM_LIST_MAP } from "./llm/llm-list"
 
@@ -97,7 +97,7 @@ export const fetchOpenRouterModels = async () => {
       }): OpenRouterLLM => ({
         modelId: model.id as LLMID,
         modelName: model.id,
-        provider: "openrouter",
+        provider: "google",
         hostedId: model.name,
         platformLink: "https://openrouter.dev",
         imageInput: false,

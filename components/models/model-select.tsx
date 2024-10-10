@@ -11,7 +11,6 @@ import {
 import { Input } from "../ui/input"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { ModelIcon } from "./model-icon"
-import { ModelOption } from "./model-option"
 
 interface ModelSelectProps {
   selectedModelId: string
@@ -54,7 +53,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({
     ...models.map(model => ({
       modelId: model.model_id as LLMID,
       modelName: model.name,
-      provider: "custom" as ModelProvider,
+      provider: "google" as ModelProvider,
       hostedId: model.id,
       platformLink: "",
       imageInput: false
@@ -153,11 +152,6 @@ export const ModelSelect: FC<ModelSelectProps> = ({
         <div className="max-h-[300px] overflow-auto">
           {Object.entries(groupedModels).map(([provider, models]) => {
             const filteredModels = models
-              .filter(model => {
-                if (tab === "hosted") return model.provider !== "ollama"
-                if (tab === "local") return model.provider === "ollama"
-                if (tab === "openrouter") return model.provider === "openrouter"
-              })
               .filter(model =>
                 model.modelName.toLowerCase().includes(search.toLowerCase())
               )
@@ -183,12 +177,6 @@ export const ModelSelect: FC<ModelSelectProps> = ({
                         {selectedModelId === model.modelId && (
                           <IconCheck className="ml-2" size={32} />
                         )}
-
-                        <ModelOption
-                          key={model.modelId}
-                          model={model}
-                          onSelect={() => handleSelectModel(model.modelId)}
-                        />
                       </div>
                     )
                   })}

@@ -55,7 +55,7 @@ export const handleRetrieval = async (
   userInput: string,
   newMessageFiles: ChatFile[],
   chatFiles: ChatFile[],
-  embeddingsProvider: "openai" | "local",
+  embeddingsProvider: "local",
   sourceCount: number
 ) => {
   const response = await fetch("/api/retrieval/retrieve", {
@@ -201,10 +201,7 @@ export const handleHostedChat = async (
   setChatMessages: React.Dispatch<React.SetStateAction<ChatMessage[]>>,
   setToolInUse: React.Dispatch<React.SetStateAction<string>>
 ) => {
-  const provider =
-    modelData.provider === "openai" && profile.use_azure_openai
-      ? "azure"
-      : modelData.provider
+  const provider = modelData.provider
 
   let draftMessages = await buildFinalMessages(payload, profile, chatImages)
 
@@ -218,13 +215,12 @@ export const handleHostedChat = async (
     formattedMessages = draftMessages
   }
 
-  const apiEndpoint =
-    provider === "custom" ? "/api/chat/custom" : `/api/chat/${provider}`
+  const apiEndpoint = `/api/chat/${provider}`
 
   const requestBody = {
     chatSettings: payload.chatSettings,
     messages: formattedMessages,
-    customModelId: provider === "custom" ? modelData.hostedId : ""
+    customModelId: ""
   }
 
   const response = await fetchChatResponse(

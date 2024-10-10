@@ -12,10 +12,10 @@ import { ReactNode } from "react"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
-const APP_NAME = "Chatbot UI"
-const APP_DEFAULT_TITLE = "Chatbot UI"
-const APP_TITLE_TEMPLATE = "%s - Chatbot UI"
-const APP_DESCRIPTION = "Chabot UI PWA!"
+const APP_NAME = "Webby AI"
+const APP_DEFAULT_TITLE = "Webby UI"
+const APP_TITLE_TEMPLATE = "%s - Webby UI"
+const APP_DESCRIPTION = "Webby AI Learning Buddy"
 
 interface RootLayoutProps {
   children: ReactNode
@@ -72,8 +72,14 @@ export default async function RootLayout({
 }: RootLayoutProps) {
   const cookieStore = cookies()
   const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL ??
+      (() => {
+        throw new Error("NEXT_PUBLIC_SUPABASE_URL is not defined")
+      })(),
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
+      (() => {
+        throw new Error("NEXT_PUBLIC_SUPABASE_ANON_KEY is not defined")
+      })(),
     {
       cookies: {
         get(name: string) {

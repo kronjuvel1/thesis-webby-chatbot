@@ -108,9 +108,7 @@ export const useChatHandler = () => {
         includeProfileContext: selectedAssistant.include_profile_context,
         includeWorkspaceInstructions:
           selectedAssistant.include_workspace_instructions,
-        embeddingsProvider: selectedAssistant.embeddings_provider as
-          | "openai"
-          | "local"
+        embeddingsProvider: selectedAssistant.embeddings_provider as "local"
       })
 
       let allFiles = []
@@ -152,9 +150,7 @@ export const useChatHandler = () => {
         includeProfileContext: selectedPreset.include_profile_context,
         includeWorkspaceInstructions:
           selectedPreset.include_workspace_instructions,
-        embeddingsProvider: selectedPreset.embeddings_provider as
-          | "openai"
-          | "local"
+        embeddingsProvider: selectedPreset.embeddings_provider as "local"
       })
     } else if (selectedWorkspace) {
       // setChatSettings({
@@ -170,8 +166,7 @@ export const useChatHandler = () => {
       //   includeWorkspaceInstructions:
       //     selectedWorkspace.include_workspace_instructions || true,
       //   embeddingsProvider:
-      //     (selectedWorkspace.embeddings_provider as "openai" | "local") ||
-      //     "openai"
+      //     (selectedWorkspace.embeddings_provider as "local") ||
       // })
     }
 
@@ -243,7 +238,7 @@ export const useChatHandler = () => {
           userInput,
           newMessageFiles,
           chatFiles,
-          chatSettings!.embeddingsProvider,
+          chatSettings!.embeddingsProvider as "local",
           sourceCount
         )
       }
@@ -307,7 +302,7 @@ export const useChatHandler = () => {
           setToolInUse
         )
       } else {
-        if (modelData!.provider === "ollama") {
+        if (modelData?.provider === ("local" as ModelProvider)) {
           generatedText = await handleLocalChat(
             payload,
             profile!,

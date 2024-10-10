@@ -231,7 +231,7 @@ export const Message: FC<MessageProps> = ({
                     display={<div>{MODEL_DATA?.modelName}</div>}
                     trigger={
                       <ModelIcon
-                        provider={modelDetails?.provider || "custom"}
+                        provider={"google"}
                         height={ICON_SIZE}
                         width={ICON_SIZE}
                       />

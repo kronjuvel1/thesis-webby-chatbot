@@ -26,11 +26,11 @@ export default async function initTranslations(
     lng: locale,
     resources,
     fallbackLng: i18nConfig.defaultLocale,
-    supportedLngs: i18nConfig.locales,
+    supportedLngs: i18nConfig,
     defaultNS: namespaces[0],
     fallbackNS: namespaces[0],
     ns: namespaces,
-    preload: resources ? [] : i18nConfig.locales
+    preload: resources ? [] : i18nConfig
   })
 
   return {
