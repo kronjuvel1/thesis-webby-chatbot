@@ -12,17 +12,11 @@ import { createAssistantFiles } from "@/db/assistant-files"
 import { createAssistantTools } from "@/db/assistant-tools"
 import { createAssistant, updateAssistant } from "@/db/assistants"
 import { createChat } from "@/db/chats"
-import { createCollectionFiles } from "@/db/collection-files"
-import { createCollection } from "@/db/collections"
-import { createFileBasedOnExtension } from "@/db/files"
 import { createModel } from "@/db/models"
-import { createPreset } from "@/db/presets"
-import { createPrompt } from "@/db/prompts"
 import {
   getAssistantImageFromStorage,
   uploadAssistantImage
 } from "@/db/storage/assistant-images"
-import { createTool } from "@/db/tools"
 import { convertBlobToBase64 } from "@/lib/blob-to-b64"
 import { Tables, TablesInsert } from "@/supabase/types"
 import { ContentType } from "@/types"
@@ -49,13 +43,8 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
   const {
     selectedWorkspace,
     setChats,
-    setPresets,
-    setPrompts,
-    setFiles,
-    setCollections,
     setAssistants,
     setAssistantImages,
-    setTools,
     setModels
   } = useContext(ChatbotUIContext)
 
@@ -65,45 +54,6 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
 
   const createFunctions = {
     chats: createChat,
-    presets: createPreset,
-    prompts: createPrompt,
-    files: async (
-      createState: { file: File } & TablesInsert<"files">,
-      workspaceId: string
-    ) => {
-      if (!selectedWorkspace) return
-
-      const { file, ...rest } = createState
-
-      const createdFile = await createFileBasedOnExtension(
-        file,
-        rest,
-        workspaceId,
-        selectedWorkspace.embeddings_provider as "openai" | "local"
-      )
-
-      return createdFile
-    },
-    collections: async (
-      createState: {
-        image: File
-        collectionFiles: TablesInsert<"collection_files">[]
-      } & Tables<"collections">,
-      workspaceId: string
-    ) => {
-      const { collectionFiles, ...rest } = createState
-
-      const createdCollection = await createCollection(rest, workspaceId)
-
-      const finalCollectionFiles = collectionFiles.map(collectionFile => ({
-        ...collectionFile,
-        collection_id: createdCollection.id
-      }))
-
-      await createCollectionFiles(finalCollectionFiles)
-
-      return createdCollection
-    },
     assistants: async (
       createState: {
         image: File
@@ -169,18 +119,12 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
 
       return updatedAssistant
     },
-    tools: createTool,
     models: createModel
   }
 
   const stateUpdateFunctions = {
     chats: setChats,
-    presets: setPresets,
-    prompts: setPrompts,
-    files: setFiles,
-    collections: setCollections,
     assistants: setAssistants,
-    tools: setTools,
     models: setModels
   }
 

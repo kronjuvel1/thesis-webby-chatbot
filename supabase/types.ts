@@ -1314,6 +1314,13 @@ export type Database = {
         }
         Relationships: [
           {
+            foreignKeyName: "tool_workspaces_tool_id_fkey"
+            columns: ["tool_id"]
+            isOneToOne: false
+            referencedRelation: "tools"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "tool_workspaces_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false

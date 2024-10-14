@@ -35,10 +35,6 @@ export const SidebarItem: FC<SidebarItemProps> = ({
 
   const actionMap = {
     chats: async (item: any) => {},
-    presets: async (item: any) => {},
-    prompts: async (item: any) => {},
-    files: async (item: any) => {},
-    collections: async (item: any) => {},
     assistants: async (assistant: Tables<"assistants">) => {
       if (!selectedWorkspace) return
 
@@ -62,7 +58,6 @@ export const SidebarItem: FC<SidebarItemProps> = ({
 
       return router.push(`/${selectedWorkspace.id}/chat/${createdChat.id}`)
     },
-    tools: async (item: any) => {},
     models: async (item: any) => {}
   }
 

@@ -52,7 +52,7 @@ export const ChatSettings: FC<ChatSettingsProps> = ({}) => {
     ...models.map(model => ({
       modelId: model.model_id as LLMID,
       modelName: model.name,
-      provider: "custom" as ModelProvider,
+      provider: "google" as ModelProvider,
       hostedId: model.id,
       platformLink: "",
       imageInput: false
