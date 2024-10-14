@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils"
 
 import { ModelProvider } from "@/types"
-import { IconSparkles } from "@tabler/icons-react"
 import { useTheme } from "next-themes"
 import { FC, HTMLAttributes } from "react"
 import { GoogleSVG } from "../icons/google-svg"

@@ -96,7 +96,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({
       >
         {allModels.length === 0 ? (
           <div className="rounded text-sm font-bold">
-            Unlock models by entering API keys in your profile settings.
+            Gemini is the only model available for now.
           </div>
         ) : (
           <Button

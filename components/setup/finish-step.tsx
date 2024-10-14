@@ -8,11 +8,11 @@ export const FinishStep: FC<FinishStepProps> = ({ displayName }) => {
   return (
     <div className="space-y-4">
       <div>
-        Welcome to Webby
-        {displayName.length > 0 ? `, ${displayName.split(" ")[0]}` : null}!
+        You&apos;re almost done{" "}
+        {displayName.length > 0 ? `, ${displayName.split(" ")[0]}` : ""}!
       </div>
 
-      <div>Click next to start chatting.</div>
+      <div>Click next to meet Webby.</div>
     </div>
   )
 }
