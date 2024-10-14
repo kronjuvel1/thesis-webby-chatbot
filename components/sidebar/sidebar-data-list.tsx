@@ -1,12 +1,7 @@
 import { ChatbotUIContext } from "@/context/context"
 import { updateAssistant } from "@/db/assistants"
 import { updateChat } from "@/db/chats"
-import { updateCollection } from "@/db/collections"
-import { updateFile } from "@/db/files"
 import { updateModel } from "@/db/models"
-import { updatePreset } from "@/db/presets"
-import { updatePrompt } from "@/db/prompts"
-import { updateTool } from "@/db/tools"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
 import { ContentType, DataItemType, DataListType } from "@/types"
@@ -14,13 +9,8 @@ import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
 import { AssistantItem } from "./items/assistants/assistant-item"
 import { ChatItem } from "./items/chat/chat-item"
-import { CollectionItem } from "./items/collections/collection-item"
-import { FileItem } from "./items/files/file-item"
 import { Folder } from "./items/folders/folder-item"
 import { ModelItem } from "./items/models/model-item"
-import { PresetItem } from "./items/presets/preset-item"
-import { PromptItem } from "./items/prompts/prompt-item"
-import { ToolItem } from "./items/tools/tool-item"
 
 interface SidebarDataListProps {
   contentType: ContentType
@@ -33,16 +23,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
   data,
   folders
 }) => {
-  const {
-    setChats,
-    setPresets,
-    setPrompts,
-    setFiles,
-    setCollections,
-    setAssistants,
-    setTools,
-    setModels
-  } = useContext(ChatbotUIContext)
+  const { setChats, setAssistants, setModels } = useContext(ChatbotUIContext)
 
   const divRef = useRef<HTMLDivElement>(null)
 
@@ -57,23 +38,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
       case "chats":
         return <ChatItem key={item.id} chat={item as Tables<"chats">} />
 
-      case "presets":
-        return <PresetItem key={item.id} preset={item as Tables<"presets">} />
-
-      case "prompts":
-        return <PromptItem key={item.id} prompt={item as Tables<"prompts">} />
-
-      case "files":
-        return <FileItem key={item.id} file={item as Tables<"files">} />
-
-      case "collections":
-        return (
-          <CollectionItem
-            key={item.id}
-            collection={item as Tables<"collections">}
-          />
-        )
-
       case "assistants":
         return (
           <AssistantItem
@@ -81,9 +45,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
             assistant={item as Tables<"assistants">}
           />
         )
-
-      case "tools":
-        return <ToolItem key={item.id} tool={item as Tables<"tools">} />
 
       case "models":
         return <ModelItem key={item.id} model={item as Tables<"models">} />
@@ -134,23 +95,13 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
   const updateFunctions = {
     chats: updateChat,
-    presets: updatePreset,
-    prompts: updatePrompt,
-    files: updateFile,
-    collections: updateCollection,
     assistants: updateAssistant,
-    tools: updateTool,
     models: updateModel
   }
 
   const stateUpdateFunctions = {
     chats: setChats,
-    presets: setPresets,
-    prompts: setPrompts,
-    files: setFiles,
-    collections: setCollections,
     assistants: setAssistants,
-    tools: setTools,
     models: setModels
   }
 
@@ -159,8 +110,10 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
 
     if (!item) return null
 
-    const updateFunction = updateFunctions[contentType]
-    const setStateFunction = stateUpdateFunctions[contentType]
+    const updateFunction =
+      updateFunctions[contentType as keyof typeof updateFunctions]
+    const setStateFunction =
+      stateUpdateFunctions[contentType as keyof typeof stateUpdateFunctions]
 
     if (!updateFunction || !setStateFunction) return
 
@@ -231,7 +184,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
             </div>
           </div>
         )}
-
+        1
         {(dataWithFolders.length > 0 || dataWithoutFolders.length > 0) && (
           <div
             className={`h-full ${
