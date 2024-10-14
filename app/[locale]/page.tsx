@@ -1,26 +1,24 @@
 "use client"
 
-import { ChatbotUISVG } from "@/components/icons/chatbotui-svg"
+import Webbylottie from "@/components/icons/webby-lottie"
 import { IconArrowRight } from "@tabler/icons-react"
-import { useTheme } from "next-themes"
 import Link from "next/link"
 
 export default function HomePage() {
-  const { theme } = useTheme()
-
   return (
     <div className="flex size-full flex-col items-center justify-center">
       <div>
-        <ChatbotUISVG theme={theme === "dark" ? "dark" : "light"} scale={0.3} />
+        <Webbylottie scale={0.8} />
+      </div>
+      <div className="text-center text-2xl font-bold">
+        Meet Webby, your personal learning buddy
       </div>
 
-      <div className="mt-2 text-4xl font-bold">Webby</div>
-
       <Link
-        className="mt-4 flex w-[200px] items-center justify-center rounded-md bg-blue-500 p-2 font-semibold"
+        className="bg-primary text-secondary mt-4 flex w-[200px] items-center justify-center rounded-md p-2 font-semibold"
         href="/login"
       >
-        Start Chatting
+        Start Learning
         <IconArrowRight className="ml-1" size={20} />
       </Link>
     </div>
