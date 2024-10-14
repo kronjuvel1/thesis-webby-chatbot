@@ -13,7 +13,7 @@ export const Brand = () => {
         <Webbylottie />
       </div>
 
-      <div className="text-4xl font-bold tracking-wide">Webby</div>
+      {/* <div className="text-4xl font-bold tracking-wide">Webby</div> */}
     </Link>
   )
 }

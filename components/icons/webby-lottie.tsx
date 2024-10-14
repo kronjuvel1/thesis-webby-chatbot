@@ -8,8 +8,13 @@ interface WebbylottieProps {
 
 const Webbylottie: FC<WebbylottieProps> = ({ scale = 1 }) => {
   return (
-    <div style={{ transform: `scale(${scale / 2})` }}>
-      <Lottie animationData={animationData} loop={true} />
+    <div>
+      <div style={{ transform: `scale(${scale / 1.5})` }}>
+        <Lottie animationData={animationData} loop={true} />
+      </div>
+      <div className="text-center text-2xl font-bold">
+        Hello, I am Webby, your personal learning buddy.
+      </div>
     </div>
   )
 }

@@ -10,9 +10,6 @@ export default function HomePage() {
       <div>
         <Webbylottie scale={0.8} />
       </div>
-      <div className="text-center text-2xl font-bold">
-        Meet Webby, your personal learning buddy
-      </div>
 
       <Link
         className="bg-primary text-secondary mt-4 flex w-[200px] items-center justify-center rounded-md p-2 font-semibold"
