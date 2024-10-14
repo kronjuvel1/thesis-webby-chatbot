@@ -16,45 +16,6 @@ BEGIN
   INSERT INTO folders (user_id, workspace_id, name, description, type) VALUES
   ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', workspace1_id, 'Chat Folder 1', 'This is a folder for chats', 'chats');
 
-  -- start data for files
-  INSERT INTO files (user_id, name, description, file_path, size, tokens, type) VALUES
-  ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', 'File 1', 'This is a file for testing', 'https://example.com/file1', 1000000, 250, 'pdf');
-
-  -- start data for file_workspaces
-  DECLARE
-    file1_id UUID;
-  BEGIN
-    SELECT id INTO file1_id FROM files WHERE name='File 1';
-
-    INSERT INTO file_workspaces (user_id, file_id, workspace_id) VALUES
-    ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', file1_id, workspace1_id);
-  END;
-
-  -- DECLARE
-  --   file1_id UUID;
-  -- BEGIN
-  --   SELECT id INTO file1_id FROM chats WHERE name='Chat 1';
-
-  --   -- start data for file items
-  --   INSERT INTO file_items (user_id, file_id, content, embedding) VALUES
-  --   ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', file1_id, 'File Item 1', []);
-  -- END;
-
-  -- start data for presets
-  INSERT INTO presets (user_id, created_at, updated_at, sharing, include_profile_context, include_workspace_instructions, context_length, model, name, prompt, temperature, description, embeddings_provider) VALUES
-  ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'private', TRUE, TRUE, 4000, 'Gemini', 'Preset 1', 'Prompt 1', 0.5, 'Description for Preset 1', 'google');
-
-  -- Get preset id
-  DECLARE
-    preset1_id UUID;
-  BEGIN
-    SELECT id INTO preset1_id FROM presets WHERE name='Preset 1';
-
-    -- start data for preset_workspaces
-    INSERT INTO preset_workspaces (user_id, preset_id, workspace_id) VALUES
-    ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', preset1_id, workspace1_id);
-  END;
-
   -- Start data for assistants 
   INSERT INTO assistants (user_id, name, description, model, image_path, sharing, context_length, include_profile_context, include_workspace_instructions, prompt, temperature, embeddings_provider) VALUES 
   ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', 'Albert Einstein', 'This is an Albert Einstein assistant.', 'gpt-4-turbo-preview', '', 'private', 4000, TRUE, TRUE, 'You are Albert Einstein.', 0.5, 'openai');
@@ -102,49 +63,5 @@ BEGIN
       ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', chat1_id, 'Sure, I would be happy to help. What do you need assistance with? This is an eighth long message with --- horizontal rule markdown. It contains a multitude of sentences and paragraphs. Let me add even more content to this message. As an AI assistant, I can understand and respond to a wide range of requests. I can generate text, answer questions, and even write code. I use a powerful language model to understand your requests and generate appropriate responses. This is a very interesting and exciting technology!', 'assistant', 'gpt-4-turbo-preview', 7, '{}'),
       ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', chat1_id, 'I need help with my math homework. This is a ninth long message with # heading markdown. It contains a vast number of sentences and paragraphs. Let me add even more content to this message. As a user, I can interact with the AI assistant in a variety of ways. I can ask it to generate text, answer questions, and even write code. The assistant uses a powerful language model to understand my requests and generate appropriate responses. This is a very interesting and exciting technology!', 'user', 'gpt-4-turbo-preview', 8, '{}');
     END;
-
-  -- Start data for prompts 
-  INSERT INTO prompts (user_id, folder_id, created_at, updated_at, sharing, content, name) VALUES 
-  ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', null, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'private', 'I want you to act as a storyteller. You will come up with entertaining stories that are engaging, imaginative and captivating for the audience. It can be fairy tales, educational stories or any other type of stories which has the potential to capture people''s attention and imagination. Depending on the target audience, you may choose specific themes or topics for your storytelling session e.g., if it’s children then you can talk about animals; If it’s adults then history-based tales might engage them better etc. My first request is ''I need an interesting story on perseverance.''', 'Storyteller');
-
-  -- Start data for prompt_workspaces
-  DECLARE
-    prompt1_id UUID;
-  BEGIN
-    SELECT id INTO prompt1_id FROM prompts WHERE name='Storyteller';
-
-    INSERT INTO prompt_workspaces (user_id, prompt_id, workspace_id) VALUES
-    ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', prompt1_id, workspace1_id);
-  END;
-
-  -- Start data for collections  
-  INSERT INTO collections (user_id, name, description, created_at, updated_at, sharing) VALUES
-  ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', 'Collection 1', 'This is a description for Collection 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'private');
-
-  -- Start data for collection_workspaces
-  DECLARE
-    collection1_id UUID;
-  BEGIN
-    SELECT id INTO collection1_id FROM collections WHERE name='Collection 1';
-
-    INSERT INTO collection_workspaces (user_id, collection_id, workspace_id) VALUES
-    ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', collection1_id, workspace1_id);
-  END;
-
-  -- Start data for tools
-  INSERT INTO tools (user_id, description, name, schema, url, created_at, updated_at, sharing) VALUES
-  ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', 'This is a description for Tool 1', 'Tool 1', '{}', 'http://example.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'private');
-
-  -- Start data for tool_workspaces
-  DECLARE
-    tool1_id UUID;
-    workspace1_id UUID;
-  BEGIN
-    SELECT id INTO tool1_id FROM tools WHERE name='Tool 1';
-    SELECT id INTO workspace1_id FROM workspaces WHERE name='Home';
-
-    INSERT INTO tool_workspaces (user_id, tool_id, workspace_id) VALUES
-    ('e9fc7e46-a8a5-4fd4-8ba7-af485013e6fa', tool1_id, workspace1_id);
-  END;
 
 END $$;
