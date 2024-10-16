@@ -364,8 +364,7 @@ export const handleCreateChat = async (
     name: messageContent.substring(0, 100),
     prompt: chatSettings.prompt,
     temperature: chatSettings.temperature,
-    embeddings_provider: chatSettings.embeddingsProvider,
-    system_settings: JSON.stringify(chatSettings.systemSettings) // Assuming chatSettings has a systemSettings property
+    embeddings_provider: chatSettings.embeddingsProvider
   })
 
   setSelectedChat(createdChat)

@@ -221,8 +221,8 @@ export type Database = {
       assistants: {
         Row: {
           context_length: number
-          created_at: string
           system_settings: string
+          created_at: string
           description: string
           embeddings_provider: string
           folder_id: string | null
@@ -241,7 +241,6 @@ export type Database = {
         Insert: {
           context_length: number
           created_at?: string
-          system_settings: string
           description: string
           embeddings_provider: string
           folder_id?: string | null
@@ -261,7 +260,6 @@ export type Database = {
           context_length?: number
           created_at?: string
           description?: string
-          system_settings?: string
           embeddings_provider?: string
           folder_id?: string | null
           id?: string
@@ -363,7 +361,6 @@ export type Database = {
           assistant_id?: string | null
           context_length: number
           created_at?: string
-          system_settings: string
           embeddings_provider: string
           folder_id?: string | null
           id?: string
@@ -382,7 +379,6 @@ export type Database = {
           assistant_id?: string | null
           context_length?: number
           created_at?: string
-          system_settings: string
           embeddings_provider?: string
           folder_id?: string | null
           id?: string
@@ -1404,6 +1400,7 @@ export type Database = {
         Row: {
           created_at: string
           default_context_length: number
+          system_settings: string
           default_model: string
           default_prompt: string
           default_temperature: number

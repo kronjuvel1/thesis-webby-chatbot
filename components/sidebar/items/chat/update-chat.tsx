@@ -29,8 +29,7 @@ export const UpdateChat: FC<UpdateChatProps> = ({ chat }) => {
 
   const handleUpdateChat = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const updatedChat = await updateChat(chat.id, {
-      name,
-      system_settings: ""
+      name
     })
     setChats(prevState =>
       prevState.map(c => (c.id === chat.id ? updatedChat : c))

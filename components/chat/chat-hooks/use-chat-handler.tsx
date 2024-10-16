@@ -350,8 +350,7 @@ export const useChatHandler = () => {
         )
       } else {
         const updatedChat = await updateChat(currentChat.id, {
-          updated_at: new Date().toISOString(),
-          system_settings: ""
+          updated_at: new Date().toISOString()
         })
 
         setChats(prevChats => {

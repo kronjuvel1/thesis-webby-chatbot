@@ -118,8 +118,7 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     if (!updateFunction || !setStateFunction) return
 
     const updatedItem = await updateFunction(item.id, {
-      folder_id: folderId,
-      system_settings: item.system_settings
+      folder_id: folderId
     })
 
     setStateFunction((items: any) =>
