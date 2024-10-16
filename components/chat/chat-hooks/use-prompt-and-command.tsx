@@ -140,6 +140,7 @@ export const usePromptAndCommand = () => {
     setSelectedAssistant(assistant)
 
     setChatSettings({
+      systemSettings: assistant.system_settings,
       model: assistant.model as LLMID,
       prompt: assistant.prompt,
       temperature: assistant.temperature,

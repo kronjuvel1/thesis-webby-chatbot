@@ -1042,6 +1042,7 @@ export type Database = {
         Row: {
           context_length: number
           created_at: string
+          system_settings: string
           description: string
           embeddings_provider: string
           folder_id: string | null

@@ -124,7 +124,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
             item => !item.hasOwnProperty("type")
           ) as Tables<"collections">[],
           tools: selectedAssistantToolItems
-        } as TablesInsert<"assistants">
+        } as unknown as TablesInsert<"assistants">
       }
       isOpen={isOpen}
       isTyping={isTyping}

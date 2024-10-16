@@ -48,9 +48,7 @@ export const WorkspaceSettings: FC<WorkspaceSettingsProps> = ({}) => {
   const [name, setName] = useState(selectedWorkspace?.name || "")
   const [imageLink, setImageLink] = useState("")
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
-  const [description, setDescription] = useState(
-    selectedWorkspace?.description || ""
-  )
+  const [description] = useState(selectedWorkspace?.description || "")
   const [instructions, setInstructions] = useState(
     selectedWorkspace?.instructions || ""
   )
@@ -128,6 +126,7 @@ export const WorkspaceSettings: FC<WorkspaceSettingsProps> = ({}) => {
       defaultChatSettings.embeddingsProvider
     ) {
       setChatSettings({
+        systemSettings: "",
         model: defaultChatSettings.model as LLMID,
         prompt: defaultChatSettings.prompt,
         temperature: defaultChatSettings.temperature,
@@ -140,8 +139,6 @@ export const WorkspaceSettings: FC<WorkspaceSettingsProps> = ({}) => {
           | "local"
       })
     }
-
-    setIsOpen(false)
     setSelectedWorkspace(updatedWorkspace)
     setWorkspaces(workspaces => {
       return workspaces.map(workspace => {

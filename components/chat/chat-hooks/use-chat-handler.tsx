@@ -101,6 +101,7 @@ export const useChatHandler = () => {
 
     if (selectedAssistant) {
       setChatSettings({
+        systemSettings: selectedAssistant.system_settings,
         model: selectedAssistant.model as LLMID,
         prompt: selectedAssistant.prompt,
         temperature: selectedAssistant.temperature,
@@ -141,17 +142,19 @@ export const useChatHandler = () => {
       )
 
       if (allFiles.length > 0) setShowFilesDisplay(true)
-    } else if (selectedPreset) {
-      setChatSettings({
-        model: selectedPreset.model as LLMID,
-        prompt: selectedPreset.prompt,
-        temperature: selectedPreset.temperature,
-        contextLength: selectedPreset.context_length,
-        includeProfileContext: selectedPreset.include_profile_context,
-        includeWorkspaceInstructions:
-          selectedPreset.include_workspace_instructions,
-        embeddingsProvider: selectedPreset.embeddings_provider as "local"
-      })
+      if (selectedPreset) {
+        setChatSettings({
+          systemSettings: selectedPreset.system_settings,
+          model: selectedPreset.model as LLMID,
+          prompt: selectedPreset.prompt,
+          temperature: selectedPreset.temperature,
+          contextLength: selectedPreset.context_length,
+          includeProfileContext: selectedPreset.include_profile_context,
+          includeWorkspaceInstructions:
+            selectedPreset.include_workspace_instructions,
+          embeddingsProvider: selectedPreset.embeddings_provider as "local"
+        })
+      }
     } else if (selectedWorkspace) {
       // setChatSettings({
       //   model: (selectedWorkspace.default_model ||
@@ -347,7 +350,8 @@ export const useChatHandler = () => {
         )
       } else {
         const updatedChat = await updateChat(currentChat.id, {
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
+          system_settings: ""
         })
 
         setChats(prevChats => {
@@ -407,7 +411,6 @@ export const useChatHandler = () => {
 
   return {
     chatInputRef,
-    prompt,
     handleNewChat,
     handleSendMessage,
     handleFocusChatInput,
