@@ -171,6 +171,7 @@ export const ChatUI: FC<ChatUIProps> = ({}) => {
 
     setSelectedChat(chat)
     setChatSettings({
+      systemSettings: {}, // Add appropriate value for systemSettings
       model: chat.model as LLMID,
       prompt: chat.prompt,
       temperature: chat.temperature,

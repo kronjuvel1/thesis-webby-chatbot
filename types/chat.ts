@@ -2,6 +2,7 @@ import { Tables } from "@/supabase/types"
 import { ChatMessage, LLMID } from "."
 
 export interface ChatSettings {
+  systemSettings: any
   model: LLMID
   prompt: string
   temperature: number

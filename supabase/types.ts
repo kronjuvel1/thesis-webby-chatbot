@@ -222,6 +222,7 @@ export type Database = {
         Row: {
           context_length: number
           created_at: string
+          system_settings: string
           description: string
           embeddings_provider: string
           folder_id: string | null
@@ -240,6 +241,7 @@ export type Database = {
         Insert: {
           context_length: number
           created_at?: string
+          system_settings: string
           description: string
           embeddings_provider: string
           folder_id?: string | null
@@ -259,6 +261,7 @@ export type Database = {
           context_length?: number
           created_at?: string
           description?: string
+          system_settings?: string
           embeddings_provider?: string
           folder_id?: string | null
           id?: string
@@ -351,6 +354,7 @@ export type Database = {
           prompt: string
           sharing: string
           temperature: number
+          system_settings: string
           updated_at: string | null
           user_id: string
           workspace_id: string
@@ -359,6 +363,7 @@ export type Database = {
           assistant_id?: string | null
           context_length: number
           created_at?: string
+          system_settings: string
           embeddings_provider: string
           folder_id?: string | null
           id?: string
@@ -377,6 +382,7 @@ export type Database = {
           assistant_id?: string | null
           context_length?: number
           created_at?: string
+          system_settings: string
           embeddings_provider?: string
           folder_id?: string | null
           id?: string
