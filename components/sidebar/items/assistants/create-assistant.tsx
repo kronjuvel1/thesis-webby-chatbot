@@ -88,7 +88,7 @@ export const CreateAssistant: FC<CreateAssistantProps> = ({
   const checkIfModelIsToolCompatible = () => {
     if (!assistantChatSettings.model) return false
 
-    const compatibleModels = ["google"]
+    const compatibleModels = ["gemini-1.5-flash"]
     const isModelCompatible = compatibleModels.includes(
       assistantChatSettings.model
     )
