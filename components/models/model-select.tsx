@@ -11,6 +11,7 @@ import {
 import { Input } from "../ui/input"
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs"
 import { ModelIcon } from "./model-icon"
+import { ModelOption } from "./model-option"
 
 interface ModelSelectProps {
   selectedModelId: string
@@ -53,7 +54,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({
     ...models.map(model => ({
       modelId: model.model_id as LLMID,
       modelName: model.name,
-      provider: "google" as ModelProvider,
+      provider: "custom" as ModelProvider,
       hostedId: model.id,
       platformLink: "",
       imageInput: false
@@ -96,7 +97,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({
       >
         {allModels.length === 0 ? (
           <div className="rounded text-sm font-bold">
-            Gemini is the only model available for now.
+            Google Gemini is the only available model for now.
           </div>
         ) : (
           <Button
@@ -152,6 +153,14 @@ export const ModelSelect: FC<ModelSelectProps> = ({
         <div className="max-h-[300px] overflow-auto">
           {Object.entries(groupedModels).map(([provider, models]) => {
             const filteredModels = models
+              .filter(model => {
+                if (tab === "hosted")
+                  return model.provider !== ("ollama" as ModelProvider)
+                if (tab === "local")
+                  return model.provider === ("ollama" as ModelProvider)
+                if (tab === "openrouter")
+                  return model.provider === ("openrouter" as ModelProvider)
+              })
               .filter(model =>
                 model.modelName.toLowerCase().includes(search.toLowerCase())
               )
@@ -177,6 +186,12 @@ export const ModelSelect: FC<ModelSelectProps> = ({
                         {selectedModelId === model.modelId && (
                           <IconCheck className="ml-2" size={32} />
                         )}
+
+                        <ModelOption
+                          key={model.modelId}
+                          model={model}
+                          onSelect={() => handleSelectModel(model.modelId)}
+                        />
                       </div>
                     )
                   })}
