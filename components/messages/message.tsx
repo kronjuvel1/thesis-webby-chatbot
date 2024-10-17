@@ -130,7 +130,7 @@ export const Message: FC<MessageProps> = ({
     ...models.map(model => ({
       modelId: model.model_id as LLMID,
       modelName: model.name,
-      provider: "custom" as ModelProvider,
+      provider: "gemini-1.5-flash" as ModelProvider,
       hostedId: model.id,
       platformLink: "",
       imageInput: false
