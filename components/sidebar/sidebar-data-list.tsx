@@ -184,7 +184,6 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
             </div>
           </div>
         )}
-        1
         {(dataWithFolders.length > 0 || dataWithoutFolders.length > 0) && (
           <div
             className={`h-full ${

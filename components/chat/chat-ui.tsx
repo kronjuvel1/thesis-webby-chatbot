@@ -76,6 +76,7 @@ export const ChatUI: FC<ChatUIProps> = ({}) => {
     }
   }, [])
 
+  const SET_IMAGE_URL = "@/public/images/icon-256x256.png"
   const fetchMessages = async () => {
     const fetchedMessages = await getMessagesByChatId(params.chatid as string)
 
@@ -83,27 +84,11 @@ export const ChatUI: FC<ChatUIProps> = ({}) => {
       message =>
         message.image_paths
           ? message.image_paths.map(async imagePath => {
-              const url = await getMessageImageFromStorage(imagePath)
-
-              if (url) {
-                const response = await fetch(url)
-                const blob = await response.blob()
-                const base64 = await convertBlobToBase64(blob)
-
-                return {
-                  messageId: message.id,
-                  path: imagePath,
-                  base64,
-                  url,
-                  file: null
-                }
-              }
-
               return {
                 messageId: message.id,
                 path: imagePath,
                 base64: "",
-                url,
+                url: SET_IMAGE_URL,
                 file: null
               }
             })
