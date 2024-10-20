@@ -39,7 +39,7 @@ export async function getServerProfile() {
 
 function addApiKeysToProfile(profile: Tables<"profiles">) {
   const apiKeys = {
-    [VALID_ENV_KEYS.OPENAI_API_KEY]: "openai_api_key",
+    // [VALID_ENV_KEYS.OPENAI_API_KEY]: "openai_api_key",
     [VALID_ENV_KEYS.GOOGLE_GEMINI_API_KEY]: "google_gemini_api_key"
   }
 
