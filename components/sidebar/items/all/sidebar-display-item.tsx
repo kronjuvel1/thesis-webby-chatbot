@@ -35,6 +35,8 @@ export const SidebarItem: FC<SidebarItemProps> = ({
 
   const actionMap = {
     chats: async (item: any) => {},
+    files: async (item: any) => {},
+    collections: async (item: any) => {},
     assistants: async (assistant: Tables<"assistants">) => {
       if (!selectedWorkspace) return
 
