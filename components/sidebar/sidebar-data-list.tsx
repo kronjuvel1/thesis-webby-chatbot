@@ -1,6 +1,8 @@
 import { ChatbotUIContext } from "@/context/context"
 import { updateAssistant } from "@/db/assistants"
 import { updateChat } from "@/db/chats"
+import { updateCollection } from "@/db/collections"
+import { updateFile } from "@/db/files"
 import { updateModel } from "@/db/models"
 import { cn } from "@/lib/utils"
 import { Tables } from "@/supabase/types"
@@ -9,6 +11,8 @@ import { FC, useContext, useEffect, useRef, useState } from "react"
 import { Separator } from "../ui/separator"
 import { AssistantItem } from "./items/assistants/assistant-item"
 import { ChatItem } from "./items/chat/chat-item"
+import { CollectionItem } from "./items/collections/collection-item"
+import { FileItem } from "./items/files/file-item"
 import { Folder } from "./items/folders/folder-item"
 import { ModelItem } from "./items/models/model-item"
 
@@ -23,7 +27,8 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
   data,
   folders
 }) => {
-  const { setChats, setAssistants, setModels } = useContext(ChatbotUIContext)
+  const { setChats, setAssistants, setModels, setFiles, setCollections } =
+    useContext(ChatbotUIContext)
 
   const divRef = useRef<HTMLDivElement>(null)
 
@@ -37,6 +42,19 @@ export const SidebarDataList: FC<SidebarDataListProps> = ({
     switch (contentType) {
       case "chats":
         return <ChatItem key={item.id} chat={item as Tables<"chats">} />
+
+      case "files":
+        return (
+          <FileItem key={item.id} file={item as unknown as Tables<"files">} />
+        )
+
+      case "collections":
+        return (
+          <CollectionItem
+            key={item.id}
+            collection={item as Tables<"collections">}
+          />
+        )
 
       case "assistants":
         return (

@@ -7,6 +7,8 @@ import { FC, useContext, useState } from "react"
 import { Button } from "../ui/button"
 import { CreateAssistant } from "./items/assistants/create-assistant"
 import { CreateModel } from "./items/models/create-model"
+import { CreateCollection } from "./items/collections/create-collection"
+import { CreateFile } from "./items/files/create-file"
 
 interface SidebarCreateButtonsProps {
   contentType: ContentType
@@ -23,6 +25,8 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
 
   const [isCreatingAssistant, setIsCreatingAssistant] = useState(false)
   const [isCreatingModel, setIsCreatingModel] = useState(false)
+  const [isCreatingFile, setIsCreatingFile] = useState(false)
+  const [isCreatingCollection, setIsCreatingCollection] = useState(false)
 
   const handleCreateFolder = async () => {
     if (!profile) return
@@ -43,6 +47,16 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
       case "chats":
         return async () => {
           handleNewChat()
+        }
+
+      case "files":
+        return async () => {
+          setIsCreatingFile(true)
+        }
+
+      case "collections":
+        return async () => {
+          setIsCreatingCollection(true)
         }
 
       case "assistants":
@@ -73,6 +87,17 @@ export const SidebarCreateButtons: FC<SidebarCreateButtonsProps> = ({
         <Button className="size-[36px] p-1" onClick={handleCreateFolder}>
           <IconFolderPlus size={20} />
         </Button>
+      )}
+
+      {isCreatingFile && (
+        <CreateFile isOpen={isCreatingFile} onOpenChange={setIsCreatingFile} />
+      )}
+
+      {isCreatingCollection && (
+        <CreateCollection
+          isOpen={isCreatingCollection}
+          onOpenChange={setIsCreatingCollection}
+        />
       )}
 
       {isCreatingAssistant && (

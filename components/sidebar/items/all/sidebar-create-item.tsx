@@ -12,6 +12,8 @@ import { createAssistantFiles } from "@/db/assistant-files"
 import { createAssistantTools } from "@/db/assistant-tools"
 import { createAssistant, updateAssistant } from "@/db/assistants"
 import { createChat } from "@/db/chats"
+import { createCollection } from "@/db/collections"
+import { createCollectionFiles } from "@/db/collection-files"
 import { createModel } from "@/db/models"
 import {
   getAssistantImageFromStorage,
@@ -22,6 +24,7 @@ import { Tables, TablesInsert } from "@/supabase/types"
 import { ContentType } from "@/types"
 import { FC, useContext, useRef, useState } from "react"
 import { toast } from "sonner"
+import { createFileBasedOnExtension } from "@/db/files"
 
 interface SidebarCreateItemProps {
   isOpen: boolean
@@ -44,6 +47,8 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
     selectedWorkspace,
     setChats,
     setAssistants,
+    setCollections,
+    setFiles,
     setAssistantImages,
     setModels
   } = useContext(ChatbotUIContext)
@@ -54,6 +59,43 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
 
   const createFunctions = {
     chats: createChat,
+    files: async (
+      createState: { file: File } & TablesInsert<"files">,
+      workspaceId: string
+    ) => {
+      if (!selectedWorkspace) return
+
+      const { file, ...rest } = createState
+
+      const createdFile = await createFileBasedOnExtension(
+        file,
+        rest,
+        workspaceId,
+        selectedWorkspace.embeddings_provider as "openai" | "local"
+      )
+
+      return createdFile
+    },
+    collections: async (
+      createState: {
+        image: File
+        collectionFiles: TablesInsert<"collection_files">[]
+      } & Tables<"collections">,
+      workspaceId: string
+    ) => {
+      const { collectionFiles, ...rest } = createState
+
+      const createdCollection = await createCollection(rest, workspaceId)
+
+      const finalCollectionFiles = collectionFiles.map(collectionFile => ({
+        ...collectionFile,
+        collection_id: createdCollection.id
+      }))
+
+      await createCollectionFiles(finalCollectionFiles)
+
+      return createdCollection
+    },
     assistants: async (
       createState: {
         image: File
@@ -125,6 +167,8 @@ export const SidebarCreateItem: FC<SidebarCreateItemProps> = ({
   const stateUpdateFunctions = {
     chats: setChats,
     assistants: setAssistants,
+    files: setFiles,
+    collections: setCollections,
     models: setModels
   }
 

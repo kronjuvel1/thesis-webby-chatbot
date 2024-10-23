@@ -1,5 +1,11 @@
 import { ContentType } from "@/types"
-import { IconMessage, IconRobotFace, IconSparkles } from "@tabler/icons-react"
+import {
+  IconMessage,
+  IconRobotFace,
+  IconSparkles,
+  IconFile,
+  IconBooks
+} from "@tabler/icons-react"
 import { FC } from "react"
 import { TabsList } from "../ui/tabs"
 import { WithTooltip } from "../ui/with-tooltip"
@@ -31,6 +37,18 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
         />
 
         <SidebarSwitchItem
+          icon={<IconFile size={SIDEBAR_ICON_SIZE} />}
+          contentType="files"
+          onContentTypeChange={onContentTypeChange}
+        />
+
+        <SidebarSwitchItem
+          icon={<IconBooks size={SIDEBAR_ICON_SIZE} />}
+          contentType="collections"
+          onContentTypeChange={onContentTypeChange}
+        />
+
+        <SidebarSwitchItem
           icon={<IconRobotFace size={SIDEBAR_ICON_SIZE} />}
           contentType="assistants"
           onContentTypeChange={onContentTypeChange}
@@ -38,12 +56,6 @@ export const SidebarSwitcher: FC<SidebarSwitcherProps> = ({
       </TabsList>
 
       <div className="flex flex-col items-center space-y-4">
-        {/* TODO */}
-        {/* <WithTooltip display={<div>Import</div>} trigger={<Import />} /> */}
-
-        {/* TODO */}
-        {/* <Alerts /> */}
-
         <WithTooltip
           display={<div>Profile Settings</div>}
           trigger={<ProfileSettings />}

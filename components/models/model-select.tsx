@@ -54,7 +54,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({
     ...models.map(model => ({
       modelId: model.model_id as LLMID,
       modelName: model.name,
-      provider: "custom" as ModelProvider,
+      provider: "google" as ModelProvider,
       hostedId: model.id,
       platformLink: "",
       imageInput: false
@@ -155,11 +155,9 @@ export const ModelSelect: FC<ModelSelectProps> = ({
             const filteredModels = models
               .filter(model => {
                 if (tab === "hosted")
-                  return model.provider !== ("ollama" as ModelProvider)
+                  return model.provider !== ("google" as ModelProvider)
                 if (tab === "local")
                   return model.provider === ("ollama" as ModelProvider)
-                if (tab === "openrouter")
-                  return model.provider === ("openrouter" as ModelProvider)
               })
               .filter(model =>
                 model.modelName.toLowerCase().includes(search.toLowerCase())
@@ -171,9 +169,7 @@ export const ModelSelect: FC<ModelSelectProps> = ({
             return (
               <div key={provider}>
                 <div className="mb-1 ml-2 text-xs font-bold tracking-wide opacity-50">
-                  {provider === "openai" && profile.use_azure_openai
-                    ? "AZURE OPENAI"
-                    : provider.toLocaleUpperCase()}
+                  {provider === provider.toLocaleUpperCase()}
                 </div>
 
                 <div className="mb-4">

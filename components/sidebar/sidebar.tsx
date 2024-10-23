@@ -14,11 +14,16 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
-  const { folders, chats, assistants, models } = useContext(ChatbotUIContext)
+  const { folders, chats, assistants, models, files, collections } =
+    useContext(ChatbotUIContext)
 
   const chatFolders = folders.filter(folder => folder.type === "chats")
   const assistantFolders = folders.filter(
     folder => folder.type === "assistants"
+  )
+  const filesFolders = folders.filter(folder => folder.type === "files")
+  const collectionFolders = folders.filter(
+    folder => folder.type === "collections"
   )
   const modelFolders = folders.filter(folder => folder.type === "models")
 
@@ -54,6 +59,16 @@ export const Sidebar: FC<SidebarProps> = ({ contentType, showSidebar }) => {
           switch (contentType) {
             case "chats":
               return renderSidebarContent("chats", chats, chatFolders)
+
+            case "files":
+              return renderSidebarContent("files", files, filesFolders)
+
+            case "collections":
+              return renderSidebarContent(
+                "collections",
+                collections,
+                collectionFolders
+              )
 
             case "assistants":
               return renderSidebarContent(
