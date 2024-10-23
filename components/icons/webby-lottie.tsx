@@ -23,7 +23,7 @@ const Webbylottie: FC<WebbylottieProps> = ({ scale = 1, filter }) => {
           className="text-center text-2xl font-bold"
           style={{ filter: theme === "light" ? filter : "invert(1)" }}
         >
-          Hello, I am Webby, the Web Development Learning Buddy.
+          WEBBY
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ export default function HomePage() {
     <div className="flex size-full flex-col items-center justify-center">
       <div>
         <Webbylottie scale={0.8} />
+        the Web Development Learning Buddy
       </div>
       <Link
         className="bg-primary text-secondary mt-4 flex w-[200px] items-center justify-center rounded-md p-2 font-semibold"
