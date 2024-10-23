@@ -10,16 +10,7 @@ import {
 } from "@/components/ui/sheet"
 import { AssignWorkspaces } from "@/components/workspace/assign-workspaces"
 import { ChatbotUIContext } from "@/context/context"
-import {
-  createAssistantFile,
-  deleteAssistantFile,
-  getAssistantFilesByAssistantId
-} from "@/db/assistant-files"
-import {
-  createAssistantTool,
-  deleteAssistantTool,
-  getAssistantToolsByAssistantId
-} from "@/db/assistant-tools"
+import { getAssistantFilesByAssistantId } from "@/db/assistant-files"
 import {
   createAssistantWorkspaces,
   deleteAssistantWorkspace,
@@ -27,6 +18,23 @@ import {
   updateAssistant
 } from "@/db/assistants"
 import { updateChat } from "@/db/chats"
+import {
+  createCollectionFile,
+  deleteCollectionFile,
+  getCollectionFilesByCollectionId
+} from "@/db/collection-files"
+import {
+  createCollectionWorkspaces,
+  deleteCollectionWorkspace,
+  getCollectionWorkspacesByCollectionId,
+  updateCollection
+} from "@/db/collections"
+import {
+  createFileWorkspaces,
+  deleteFileWorkspace,
+  getFileWorkspacesByFileId,
+  updateFile
+} from "@/db/files"
 import {
   createModelWorkspaces,
   deleteModelWorkspace,
@@ -37,12 +45,6 @@ import {
   getAssistantImageFromStorage,
   uploadAssistantImage
 } from "@/db/storage/assistant-images"
-import {
-  createToolWorkspaces,
-  deleteToolWorkspace,
-  getToolWorkspacesByToolId,
-  updateTool
-} from "@/db/tools"
 import { convertBlobToBase64 } from "@/lib/blob-to-b64"
 import { Tables, TablesUpdate } from "@/supabase/types"
 import { CollectionFile, ContentType, DataItemType } from "@/types"
@@ -50,6 +52,7 @@ import { FC, useContext, useEffect, useRef, useState } from "react"
 import profile from "react-syntax-highlighter/dist/esm/languages/hljs/profile"
 import { toast } from "sonner"
 import { SidebarDeleteItem } from "./sidebar-delete-item"
+import { set } from "date-fns"
 
 interface SidebarUpdateItemProps {
   isTyping: boolean
@@ -74,6 +77,8 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
     setChats,
     setAssistants,
     setModels,
+    setFiles,
+    setCollections,
     setAssistantImages
   } = useContext(ChatbotUIContext)
 
@@ -87,23 +92,25 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
     Tables<"workspaces">[]
   >([])
 
+  // Collections Render State
+  const [startingCollectionFiles, setStartingCollectionFiles] = useState<
+    CollectionFile[]
+  >([])
+  const [selectedCollectionFiles, setSelectedCollectionFiles] = useState<
+    CollectionFile[]
+  >([])
+
   // Assistants Render State
   const [startingAssistantFiles, setStartingAssistantFiles] = useState<
     Tables<"files">[]
   >([])
   const [startingAssistantCollections, setStartingAssistantCollections] =
     useState<Tables<"collections">[]>([])
-  const [startingAssistantTools, setStartingAssistantTools] = useState<
-    Tables<"tools">[]
-  >([])
   const [selectedAssistantFiles, setSelectedAssistantFiles] = useState<
     Tables<"files">[]
   >([])
   const [selectedAssistantCollections, setSelectedAssistantCollections] =
     useState<Tables<"collections">[]>([])
-  const [selectedAssistantTools, setSelectedAssistantTools] = useState<
-    Tables<"tools">[]
-  >([])
 
   useEffect(() => {
     if (isOpen) {
@@ -128,19 +135,21 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
     presets: null,
     prompts: null,
     files: null,
+    collections: {
+      startingCollectionFiles,
+      setStartingCollectionFiles,
+      selectedCollectionFiles,
+      setSelectedCollectionFiles
+    },
     assistants: {
       startingAssistantFiles,
       setStartingAssistantFiles,
       startingAssistantCollections,
       setStartingAssistantCollections,
-      startingAssistantTools,
-      setStartingAssistantTools,
       selectedAssistantFiles,
       setSelectedAssistantFiles,
       selectedAssistantCollections,
-      setSelectedAssistantCollections,
-      selectedAssistantTools,
-      setSelectedAssistantTools
+      setSelectedAssistantCollections
     },
     tools: null,
     models: null
@@ -148,16 +157,16 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
 
   const fetchDataFunctions = {
     chats: null,
+    files: null,
     assistants: async (assistantId: string) => {
       const assistantFiles = await getAssistantFilesByAssistantId(assistantId)
       setStartingAssistantFiles(assistantFiles.files)
-
-      const assistantTools = await getAssistantToolsByAssistantId(assistantId)
-      setStartingAssistantTools(assistantTools.tools)
-
-      setSelectedAssistantFiles([])
-      setSelectedAssistantCollections([])
-      setSelectedAssistantTools([])
+    },
+    collections: async (collectionId: string) => {
+      const collectionFiles =
+        await getCollectionFilesByCollectionId(collectionId)
+      setStartingCollectionFiles(collectionFiles.files)
+      setSelectedCollectionFiles([])
     },
     tools: null,
     models: null
@@ -171,6 +180,14 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
     },
     models: async (modelId: string) => {
       const item = await getModelWorkspacesByModelId(modelId)
+      return item.workspaces
+    },
+    files: async (fileId: string) => {
+      const item = await getFileWorkspacesByFileId(fileId)
+      return item.workspaces
+    },
+    collections: async (collectionId: string) => {
+      const item = await getCollectionWorkspacesByCollectionId(collectionId)
       return item.workspaces
     }
   }
@@ -241,6 +258,66 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
 
   const updateFunctions = {
     chats: updateChat,
+    files: async (fileId: string, updateState: TablesUpdate<"files">) => {
+      const updatedFile = await updateFile(fileId, updateState)
+
+      await handleWorkspaceUpdates(
+        startingWorkspaces,
+        selectedWorkspaces,
+        fileId,
+        deleteFileWorkspace,
+        createFileWorkspaces as any,
+        "file_id"
+      )
+
+      return updatedFile
+    },
+    collections: async (
+      collectionId: string,
+      updateState: TablesUpdate<"assistants">
+    ) => {
+      if (!profile) return
+
+      const { ...rest } = updateState
+
+      const filesToAdd = selectedCollectionFiles.filter(
+        selectedFile =>
+          !startingCollectionFiles.some(
+            startingFile => startingFile.id === selectedFile.id
+          )
+      )
+
+      const filesToRemove = startingCollectionFiles.filter(startingFile =>
+        selectedCollectionFiles.some(
+          selectedFile => selectedFile.id === startingFile.id
+        )
+      )
+
+      for (const file of filesToAdd) {
+        await createCollectionFile({
+          user_id: item.user_id,
+          collection_id: collectionId,
+          file_id: file.id
+        })
+      }
+
+      for (const file of filesToRemove) {
+        await deleteCollectionFile(collectionId, file.id)
+      }
+
+      const updatedCollection = await updateCollection(collectionId, rest)
+
+      await handleWorkspaceUpdates(
+        startingWorkspaces,
+        selectedWorkspaces,
+        collectionId,
+        deleteCollectionWorkspace,
+        createCollectionWorkspaces as any,
+        "collection_id"
+      )
+
+      return updatedCollection
+    },
     assistants: async (
       assistantId: string,
       updateState: {
@@ -308,7 +385,9 @@ export const SidebarUpdateItem: FC<SidebarUpdateItemProps> = ({
   const stateUpdateFunctions = {
     chats: setChats,
     assistants: setAssistants,
-    models: setModels
+    models: setModels,
+    files: setFiles,
+    collections: setCollections
   }
 
   const handleUpdate = async () => {

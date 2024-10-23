@@ -47,7 +47,7 @@ export const SidebarItem: FC<SidebarItemProps> = ({
         include_workspace_instructions:
           assistant.include_workspace_instructions,
         model: assistant.model,
-        name: `Chat with ${assistant.name}`,
+        name: `Chat with Webby`,
         prompt: assistant.prompt,
         temperature: assistant.temperature,
         embeddings_provider: assistant.embeddings_provider
@@ -67,16 +67,6 @@ export const SidebarItem: FC<SidebarItemProps> = ({
       itemRef.current?.click()
     }
   }
-
-  // const handleClickAction = async (
-  //   e: React.MouseEvent<SVGSVGElement, MouseEvent>
-  // ) => {
-  //   e.stopPropagation()
-
-  //   const action = actionMap[contentType]
-
-  //   await action(item as any)
-  // }
 
   return (
     <SidebarUpdateItem
@@ -101,21 +91,6 @@ export const SidebarItem: FC<SidebarItemProps> = ({
         <div className="ml-3 flex-1 truncate text-sm font-semibold">
           {item.name}
         </div>
-
-        {/* TODO */}
-        {/* {isHovering && (
-          <WithTooltip
-            delayDuration={1000}
-            display={<div>Start chat with {contentType.slice(0, -1)}</div>}
-            trigger={
-              <IconSquarePlus
-                className="cursor-pointer hover:text-blue-500"
-                size={20}
-                onClick={handleClickAction}
-              />
-            }
-          />
-        )} */}
       </div>
     </SidebarUpdateItem>
   )
