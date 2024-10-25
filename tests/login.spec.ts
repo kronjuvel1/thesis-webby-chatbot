@@ -12,7 +12,7 @@ test('No password error message', async ({ page }) => {
   //fill in dummy email
   await page.getByPlaceholder('you@example.com').fill('dummyemail@gmail.com');
   await page.getByRole('button', { name: 'Login' }).click();
-  //wait for netwrok to be idle
+  //wait for network to be idle
   await page.waitForLoadState('networkidle');
   //validate that correct message is shown to the user
   await expect(page.getByText('Invalid login credentials')).toBeVisible();
