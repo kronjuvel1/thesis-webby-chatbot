@@ -107,8 +107,8 @@ export const QuickSettings: FC<QuickSettingsProps> = ({}) => {
       if (selectedWorkspace) {
         setChatSettings({
           model: selectedWorkspace.default_model as LLMID,
-          systemSettings: selectedWorkspace.system_settings,
           prompt: selectedWorkspace.default_prompt,
+          systemSettings: selectedWorkspace.system_settings,
           temperature: selectedWorkspace.default_temperature,
           contextLength: selectedWorkspace.default_context_length,
           includeProfileContext: selectedWorkspace.include_profile_context,
@@ -196,7 +196,7 @@ export const QuickSettings: FC<QuickSettingsProps> = ({}) => {
         <Button variant="ghost" className="flex space-x-3 text-lg">
           {selectedPreset && (
             <ModelIcon
-              provider={modelDetails?.provider ?? "google"}
+              provider={modelDetails?.provider || "custom"}
               width={32}
               height={32}
             />
