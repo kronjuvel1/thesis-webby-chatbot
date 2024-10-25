@@ -221,7 +221,7 @@ export type Database = {
       assistants: {
         Row: {
           context_length: number
-          system_settings: string
+          system_settings: string | null
           created_at: string
           description: string
           embeddings_provider: string
@@ -1038,7 +1038,7 @@ export type Database = {
         Row: {
           context_length: number
           created_at: string
-          system_settings: string
+          system_settings: string | null
           description: string
           embeddings_provider: string
           folder_id: string | null
