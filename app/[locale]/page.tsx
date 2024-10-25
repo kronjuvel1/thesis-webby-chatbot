@@ -7,7 +7,7 @@ import Link from "next/link"
 export default function HomePage() {
   return (
     <div className="flex size-full flex-col items-center justify-center">
-      <div>
+      <div className="text-center">
         <Webbylottie scale={0.8} />
         the Web Development Learning Buddy
       </div>

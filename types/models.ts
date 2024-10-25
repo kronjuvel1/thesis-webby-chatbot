@@ -1,1 +1,1 @@
-export type ModelProvider = "google" | "openrouter"
+export type ModelProvider = "google" | "openai" | "openrouter" | "custom"

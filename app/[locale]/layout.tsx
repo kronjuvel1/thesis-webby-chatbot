@@ -72,14 +72,8 @@ export default async function RootLayout({
 }: RootLayoutProps) {
   const cookieStore = cookies()
   const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ??
-      (() => {
-        throw new Error("NEXT_PUBLIC_SUPABASE_URL is not defined")
-      })(),
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-      (() => {
-        throw new Error("NEXT_PUBLIC_SUPABASE_ANON_KEY is not defined")
-      })(),
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name: string) {

@@ -42,5 +42,3 @@ test('password reset message', async ({ page }) => {
   //validate appropriate message is shown
   await expect(page.getByText('Check email to reset password')).toBeVisible();
 });
-
-//more tests can be added here

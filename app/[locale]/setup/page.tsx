@@ -46,6 +46,16 @@ export default function SetupPage() {
 
   // API Step
   const [googleGeminiAPIKey, setGoogleGeminiAPIKey] = useState("")
+  const [useAzureOpenai, setUseAzureOpenai] = useState(false)
+  const [openaiAPIKey, setOpenaiAPIKey] = useState("")
+  const [openaiOrgID, setOpenaiOrgID] = useState("")
+  const [azureOpenaiAPIKey, setAzureOpenaiAPIKey] = useState("")
+  const [azureOpenaiEndpoint, setAzureOpenaiEndpoint] = useState("")
+  const [azureOpenai35TurboID, setAzureOpenai35TurboID] = useState("")
+  const [azureOpenai45TurboID, setAzureOpenai45TurboID] = useState("")
+  const [azureOpenai45VisionID, setAzureOpenai45VisionID] = useState("")
+  const [azureOpenaiEmbeddingsID, setAzureOpenaiEmbeddingsID] = useState("")
+  const [openrouterAPIKey, setOpenrouterAPIKey] = useState("")
 
   useEffect(() => {
     ;(async () => {
@@ -111,7 +121,17 @@ export default function SetupPage() {
       has_onboarded: true,
       display_name: displayName,
       username,
-      google_gemini_api_key: googleGeminiAPIKey
+      openai_api_key: openaiAPIKey,
+      openai_organization_id: openaiOrgID,
+      google_gemini_api_key: googleGeminiAPIKey,
+      openrouter_api_key: openrouterAPIKey,
+      use_azure_openai: useAzureOpenai,
+      azure_openai_api_key: azureOpenaiAPIKey,
+      azure_openai_endpoint: azureOpenaiEndpoint,
+      azure_openai_35_turbo_id: azureOpenai35TurboID,
+      azure_openai_45_turbo_id: azureOpenai45TurboID,
+      azure_openai_45_vision_id: azureOpenai45VisionID,
+      azure_openai_embeddings_id: azureOpenaiEmbeddingsID
     }
 
     const updatedProfile = await updateProfile(profile.id, updateProfilePayload)
@@ -133,7 +153,7 @@ export default function SetupPage() {
       case 1:
         return (
           <StepContainer
-            stepDescription="Let's create your profile."
+            stepDescription="Lets know more about you."
             stepNum={currentStep}
             stepTitle="Meet Webby!"
             onShouldProceed={handleShouldProceed}
@@ -163,8 +183,28 @@ export default function SetupPage() {
             showBackButton={true}
           >
             <APIStep
+              openaiAPIKey={openaiAPIKey}
+              openaiOrgID={openaiOrgID}
+              azureOpenaiAPIKey={azureOpenaiAPIKey}
+              azureOpenaiEndpoint={azureOpenaiEndpoint}
+              azureOpenai35TurboID={azureOpenai35TurboID}
+              azureOpenai45TurboID={azureOpenai45TurboID}
+              azureOpenai45VisionID={azureOpenai45VisionID}
+              azureOpenaiEmbeddingsID={azureOpenaiEmbeddingsID}
               googleGeminiAPIKey={googleGeminiAPIKey}
+              useAzureOpenai={useAzureOpenai}
+              onOpenaiAPIKeyChange={setOpenaiAPIKey}
+              onOpenaiOrgIDChange={setOpenaiOrgID}
+              onAzureOpenaiAPIKeyChange={setAzureOpenaiAPIKey}
+              onAzureOpenaiEndpointChange={setAzureOpenaiEndpoint}
+              onAzureOpenai35TurboIDChange={setAzureOpenai35TurboID}
+              onAzureOpenai45TurboIDChange={setAzureOpenai45TurboID}
+              onAzureOpenai45VisionIDChange={setAzureOpenai45VisionID}
+              onAzureOpenaiEmbeddingsIDChange={setAzureOpenaiEmbeddingsID}
               onGoogleGeminiAPIKeyChange={setGoogleGeminiAPIKey}
+              onUseAzureOpenaiChange={setUseAzureOpenai}
+              openrouterAPIKey={openrouterAPIKey}
+              onOpenrouterAPIKeyChange={setOpenrouterAPIKey}
             />
           </StepContainer>
         )
