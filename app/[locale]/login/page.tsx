@@ -1,4 +1,4 @@
-import { Brand } from "@/components/ui/brand"
+import Webbylottie from "@/components/icons/webby-lottie"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { SubmitButton } from "@/components/ui/submit-button"
@@ -167,7 +167,7 @@ export default async function Login({
         className="animate-in text-foreground flex w-full flex-1 flex-col justify-center gap-2"
         action={signIn}
       >
-        <Brand />
+        <Webbylottie className="mx-auto" scale={0.8} />
 
         <Label className="text-md mt-4" htmlFor="email">
           Email
@@ -195,7 +195,7 @@ export default async function Login({
 
         <SubmitButton
           formAction={signUp}
-          className="bg-background text-accent hover:bg-accent hover:text-primary mb-2 rounded-md border px-4 py-2"
+          className="bg-background text-primary hover:bg-accent mb-2 rounded-md border px-4 py-2"
         >
           Sign Up
         </SubmitButton>
