@@ -1,6 +1,6 @@
 "use client"
 
-import Webbylottie from "@/components/icons/webby-lottie"
+import { Brand } from "@/components/ui/brand"
 import { IconArrowRight } from "@tabler/icons-react"
 import Link from "next/link"
 
@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <div className="flex size-full flex-col items-center justify-center">
       <div className="text-center font-bold">
-        <Webbylottie />
+        <Brand />
         the Web Development Learning Buddy
       </div>
       <Link

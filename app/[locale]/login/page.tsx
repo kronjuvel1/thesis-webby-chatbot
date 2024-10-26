@@ -189,13 +189,13 @@ export default async function Login({
           placeholder="••••••••"
         />
 
-        <SubmitButton className="bg-primary mb-2 rounded-md px-4 py-2 text-white">
+        <SubmitButton className="bg-primary hover:bg-primary/90 text-primary-foreground mb-2 rounded-md px-4 py-2">
           Login
         </SubmitButton>
 
         <SubmitButton
           formAction={signUp}
-          className="bg-background text-primary hover:bg-accent mb-2 rounded-md border px-4 py-2"
+          className="bg-background text-primary hover:bg-accent hover:text-accent-foreground mb-2 rounded-md border px-4 py-2"
         >
           Sign Up
         </SubmitButton>
