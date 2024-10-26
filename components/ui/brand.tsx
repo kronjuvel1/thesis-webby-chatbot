@@ -8,8 +8,9 @@ export const Brand = () => {
     //   className="flex cursor-pointer flex-col items-center hover:opacity-50"
     //   href="/"
     // >
-    <div className="mb-2">
+    <div className="mb-2 text-center text-xl font-bold">
       <Webbylottie />
+      WEBBY
     </div>
   )
 }

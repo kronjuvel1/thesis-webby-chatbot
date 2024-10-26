@@ -17,12 +17,6 @@ const Webbylottie: FC<WebbylottieProps> = ({ filter }) => {
         }}
       >
         <Lottie animationData={animationData} loop={true} />
-        <div
-          className="text-center text-xl font-bold"
-          style={{ filter: theme === "light" ? filter : "invert(1)" }}
-        >
-          WEBBY
-        </div>
       </div>
     </div>
   )

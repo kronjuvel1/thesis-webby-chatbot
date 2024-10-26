@@ -1,4 +1,4 @@
-import Webbylottie from "@/components/icons/webby-lottie"
+import { Brand } from "@/components/ui/brand"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { SubmitButton } from "@/components/ui/submit-button"
@@ -167,7 +167,7 @@ export default async function Login({
         className="animate-in text-foreground flex w-full flex-1 flex-col justify-center gap-2"
         action={signIn}
       >
-        <Webbylottie />
+        <Brand />
 
         <Label className="text-md mt-4" htmlFor="email">
           Email
