@@ -49,7 +49,7 @@ export const ChatSettingsForm: FC<ChatSettingsFormProps> = ({
           }}
         />
       </div>
-
+      {/* 
       <div className="space-y-1">
         <Label>Prompt</Label>
 
@@ -63,7 +63,7 @@ export const ChatSettingsForm: FC<ChatSettingsFormProps> = ({
           minRows={3}
           maxRows={6}
         />
-      </div>
+      </div> */}
 
       {useAdvancedDropdown ? (
         <AdvancedSettings>
