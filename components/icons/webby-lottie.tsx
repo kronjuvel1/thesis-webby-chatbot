@@ -5,17 +5,15 @@ import { useTheme } from "next-themes"
 import { AutoConfig } from "@xenova/transformers"
 
 interface WebbylottieProps {
-  scale?: number
   filter?: string
 }
 
-const Webbylottie: FC<WebbylottieProps> = ({ scale = 1, filter }) => {
+const Webbylottie: FC<WebbylottieProps> = ({ filter }) => {
   const { theme } = useTheme()
   return (
     <div>
       <div
         style={{
-          transform: `scale(${scale / 1.5})`,
           filter: theme === "light" ? filter : "invert(1)"
         }}
       >

@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <div className="flex size-full flex-col items-center justify-center">
       <div className="text-center font-bold">
-        <Webbylottie scale={0.8} />
+        <Webbylottie />
         the Web Development Learning Buddy
       </div>
       <Link
