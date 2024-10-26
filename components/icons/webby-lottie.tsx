@@ -2,7 +2,6 @@ import { FC, useContext } from "react"
 import Lottie from "lottie-react"
 import animationData from "./webbylottie.json"
 import { useTheme } from "next-themes"
-import { AutoConfig } from "@xenova/transformers"
 
 interface WebbylottieProps {
   filter?: string
