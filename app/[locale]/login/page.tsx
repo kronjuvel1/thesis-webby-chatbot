@@ -195,7 +195,7 @@ export default async function Login({
 
         <SubmitButton
           formAction={signUp}
-          className="bg-background hover:bg-accent hover:text-accent-foreground mb-2 rounded-md border px-4 py-2"
+          className="bg-background text-accent hover:bg-accent hover:text-primary mb-2 rounded-md border px-4 py-2"
         >
           Sign Up
         </SubmitButton>
