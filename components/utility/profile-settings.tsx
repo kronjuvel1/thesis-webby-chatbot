@@ -418,9 +418,6 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
             <TabsContent className="mt-4 space-y-4" value="keys">
               <div className="mt-5 space-y-2">
                 <Label className="flex items-center">
-                  <Label className="text-xs text-gray-500">
-                    You can get your API Key here: https://portal.azure.com/
-                  </Label>
                   {useAzureOpenai
                     ? envKeyMap["azure"]
                       ? ""
@@ -443,6 +440,10 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                       ? "Switch To Standard OpenAI"
                       : "Switch To Azure OpenAI"}
                   </Button>
+                </Label>
+                <br />
+                <Label className="text-xs text-gray-500">
+                  You can get your API Key here: https://portal.azure.com/
                 </Label>
 
                 {useAzureOpenai ? (
@@ -623,6 +624,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                 ) : (
                   <>
                     <Label>Google Gemini API Key</Label>
+                    <br />
                     <Label className="text-xs text-gray-500">
                       You can get your API Key here:
                       https://aistudio.google.com/
@@ -643,6 +645,7 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({}) => {
                 ) : (
                   <>
                     <Label>OpenRouter API Key</Label>
+                    <br />
                     <Label className="text-xs text-gray-500">
                       You can get your API Key here:
                       https://openrouter.ai/settings/keys

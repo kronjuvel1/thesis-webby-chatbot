@@ -7,14 +7,9 @@ import { AutoConfig } from "@xenova/transformers"
 interface WebbylottieProps {
   scale?: number
   filter?: string
-  className?: number | string
 }
 
-const Webbylottie: FC<WebbylottieProps> = ({
-  scale = 1,
-  filter,
-  className
-}) => {
+const Webbylottie: FC<WebbylottieProps> = ({ scale = 1, filter }) => {
   const { theme } = useTheme()
   return (
     <div>
@@ -25,12 +20,12 @@ const Webbylottie: FC<WebbylottieProps> = ({
         }}
       >
         <Lottie animationData={animationData} loop={true} />
-        <h1
+        <div
           className="text-center text-xl font-bold"
           style={{ filter: theme === "light" ? filter : "invert(1)" }}
         >
           WEBBY
-        </h1>
+        </div>
       </div>
     </div>
   )
