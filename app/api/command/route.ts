@@ -3,6 +3,7 @@ import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import OpenAI from "openai"
 
 export const runtime = "edge"
+export const preferredRegion = ["iad1", "hnd1"]
 
 export async function POST(request: Request) {
   const json = await request.json()

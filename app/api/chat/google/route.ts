@@ -3,6 +3,7 @@ import { ChatSettings } from "@/types"
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
 export const runtime = "edge"
+export const preferredRegion = ["iad1", "hnd1"]
 
 export async function POST(request: Request) {
   const json = await request.json()
