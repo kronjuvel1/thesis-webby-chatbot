@@ -7,7 +7,7 @@ interface WebbylottieProps {
   filter?: string
 }
 
-const Webbylottie: FC<WebbylottieProps> = ({ filter }) => {
+const Webbylottie: FC<WebbylottieProps> = ({ filter = "none" }) => {
   const { theme } = useTheme()
   return (
     <div>
