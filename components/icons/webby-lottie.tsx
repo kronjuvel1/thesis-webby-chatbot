@@ -1,4 +1,4 @@
-import { FC, useContext } from "react"
+import { FC } from "react"
 import Lottie from "lottie-react"
 import animationData from "./webbylottie.json"
 import { useTheme } from "next-themes"
