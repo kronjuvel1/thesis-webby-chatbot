@@ -13,7 +13,7 @@ const Webbylottie: FC<WebbylottieProps> = ({ filter = "none" }) => {
     <div>
       <div
         style={{
-          filter: theme === "dark" ? filter : "invert(1)"
+          filter: theme === "light" ? filter : "invert(1)"
         }}
       >
         <Lottie animationData={animationData} loop={true} />
