@@ -5,6 +5,7 @@ import { useTheme } from "next-themes"
 import { FC, HTMLAttributes } from "react"
 import { GoogleSVG } from "../icons/google-svg"
 import { OpenAISVG } from "../icons/openai-svg"
+import { WebbySVG } from "../icons/webby-svg"
 
 interface ModelIconProps extends HTMLAttributes<HTMLDivElement> {
   provider: ModelProvider
@@ -19,33 +20,15 @@ export const ModelIcon: FC<ModelIconProps> = ({
   ...props
 }) => {
   const { theme } = useTheme()
-
-  switch (provider as ModelProvider) {
-    case "openai":
-      return (
-        <OpenAISVG
-          className={cn(
-            "rounded-sm bg-white p-1 text-black",
-            props.className,
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          width={width}
-          height={height}
-        />
-      )
-    case "google":
-      return (
-        <GoogleSVG
-          className={cn(
-            "rounded-sm bg-white p-1 text-black",
-            props.className,
-            theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
-          )}
-          width={width}
-          height={height}
-        />
-      )
-    default:
-      return <IconSparkles size={width} />
-  }
+  return (
+    <WebbySVG
+      className={cn(
+        "rounded-sm bg-white p-1 text-black",
+        props.className,
+        theme === "dark" ? "bg-white" : "border-DEFAULT border-black"
+      )}
+      width={width}
+      height={height}
+    />
+  )
 }

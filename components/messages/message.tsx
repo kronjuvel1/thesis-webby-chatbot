@@ -23,6 +23,7 @@ import { TextareaAutosize } from "../ui/textarea-autosize"
 import { WithTooltip } from "../ui/with-tooltip"
 import { MessageActions } from "./message-actions"
 import { MessageMarkdown } from "./message-markdown"
+import { WebbySVG } from "../icons/webby-svg"
 
 const ICON_SIZE = 32
 
@@ -140,9 +141,13 @@ export const Message: FC<MessageProps> = ({
     ...availableOpenRouterModels
   ].find(llm => llm.modelId === message.model) as LLM
 
-  const messageAssistantImage = "/public/icon-192x192.png"
+  const messageAssistantImage = assistantImages.find(
+    image => image.assistantId === message.assistant_id
+  )?.base64
 
-  const selectedAssistantImage = "/public/icon-192x192.png"
+  const selectedAssistantImage = assistantImages.find(
+    image => image.path === selectedAssistant?.image_path
+  )?.base64
 
   const modelDetails = LLM_LIST.find(model => model.modelId === message.model)
 
@@ -251,7 +256,13 @@ export const Message: FC<MessageProps> = ({
 
               <div className="font-semibold">
                 {message.role === "assistant"
-                  ? "Webby"
+                  ? message.assistant_id
+                    ? assistants.find(
+                        assistant => assistant.id === message.assistant_id
+                      )?.name
+                    : selectedAssistant
+                      ? selectedAssistant?.name
+                      : MODEL_DATA?.modelName
                   : profile?.display_name ?? profile?.username}
               </div>
             </div>
