@@ -140,13 +140,9 @@ export const Message: FC<MessageProps> = ({
     ...availableOpenRouterModels
   ].find(llm => llm.modelId === message.model) as LLM
 
-  const messageAssistantImage = assistantImages.find(
-    image => image.assistantId === message.assistant_id
-  )?.base64
+  const messageAssistantImage = "/webbylottie.json"
 
-  const selectedAssistantImage = assistantImages.find(
-    image => image.path === selectedAssistant?.image_path
-  )?.base64
+  const selectedAssistantImage = "/webbylottie.json"
 
   const modelDetails = LLM_LIST.find(model => model.modelId === message.model)
 
