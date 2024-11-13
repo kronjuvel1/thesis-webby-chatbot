@@ -229,7 +229,7 @@ export const Message: FC<MessageProps> = ({
                   />
                 ) : (
                   <WithTooltip
-                    display={<div>Webby AI</div>}
+                    display={<div>{MODEL_DATA?.modelName}</div>}
                     trigger={
                       <ModelIcon
                         provider={"google"}
@@ -256,13 +256,7 @@ export const Message: FC<MessageProps> = ({
 
               <div className="font-semibold">
                 {message.role === "assistant"
-                  ? message.assistant_id
-                    ? assistants.find(
-                        assistant => assistant.id === message.assistant_id
-                      )?.name
-                    : selectedAssistant
-                      ? selectedAssistant?.name
-                      : MODEL_DATA?.modelName
+                  ? "Webby AI"
                   : profile?.display_name ?? profile?.username}
               </div>
             </div>
