@@ -22,11 +22,11 @@ export const ModelIcon: FC<ModelIconProps> = ({
   const { theme } = useTheme()
   return (
     <WebbySVG
-      className={cn(
-        "rounded-sm bg-white p-1 text-black",
-        props.className,
-        theme === "dark" ? "bg-black" : "border-DEFAULT border-white"
-      )}
+      // className={cn(
+      //   "rounded-sm bg-white p-1 text-black",
+      //   props.className,
+      //   theme === "dark" ? "bg-black" : "border-DEFAULT border-white"
+      // )}
       width={width}
       height={height}
     />
