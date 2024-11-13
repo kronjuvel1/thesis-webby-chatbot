@@ -140,9 +140,9 @@ export const Message: FC<MessageProps> = ({
     ...availableOpenRouterModels
   ].find(llm => llm.modelId === message.model) as LLM
 
-  const messageAssistantImage = "/webbylottie.json"
+  const messageAssistantImage = "@/public/icon-192x192.png"
 
-  const selectedAssistantImage = "/webbylottie.json"
+  const selectedAssistantImage = "@/public/icon-192x192.png"
 
   const modelDetails = LLM_LIST.find(model => model.modelId === message.model)
 
@@ -251,13 +251,7 @@ export const Message: FC<MessageProps> = ({
 
               <div className="font-semibold">
                 {message.role === "assistant"
-                  ? message.assistant_id
-                    ? assistants.find(
-                        assistant => assistant.id === message.assistant_id
-                      )?.name
-                    : selectedAssistant
-                      ? selectedAssistant?.name
-                      : MODEL_DATA?.modelName
+                  ? "Webby"
                   : profile?.display_name ?? profile?.username}
               </div>
             </div>
