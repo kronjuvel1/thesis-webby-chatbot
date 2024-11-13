@@ -149,7 +149,7 @@ export const Message: FC<MessageProps> = ({
     image => image.path === selectedAssistant?.image_path
   )?.base64
 
-  const modelDetails = LLM_LIST.find(model => model.modelId === message.model)
+  const modelDetails = "Webby AI"
 
   const fileAccumulator: Record<
     string,
@@ -229,7 +229,7 @@ export const Message: FC<MessageProps> = ({
                   />
                 ) : (
                   <WithTooltip
-                    display={<div>{MODEL_DATA?.modelName}</div>}
+                    display={<div>Webby AI</div>}
                     trigger={
                       <ModelIcon
                         provider={"google"}
