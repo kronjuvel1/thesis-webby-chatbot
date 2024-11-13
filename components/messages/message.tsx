@@ -140,9 +140,9 @@ export const Message: FC<MessageProps> = ({
     ...availableOpenRouterModels
   ].find(llm => llm.modelId === message.model) as LLM
 
-  const messageAssistantImage = "@/public/icon-192x192.png"
+  const messageAssistantImage = "/public/icon-192x192.png"
 
-  const selectedAssistantImage = "@/public/icon-192x192.png"
+  const selectedAssistantImage = "/public/icon-192x192.png"
 
   const modelDetails = LLM_LIST.find(model => model.modelId === message.model)
 
