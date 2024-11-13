@@ -25,7 +25,7 @@ export const ModelIcon: FC<ModelIconProps> = ({
       className={cn(
         "rounded-sm p-1",
         props.className,
-        theme === "dark" ? "bg-black text-white" : "bg-white text-black"
+        theme === "dark" ? "bg-black fill-white" : "bg-white fill-black"
       )}
       width={width}
       height={height}
