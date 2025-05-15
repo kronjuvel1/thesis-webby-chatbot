@@ -50,13 +50,8 @@ LANGUAGE 'plpgsql'
 SECURITY DEFINER
 AS $$
 DECLARE
-<<<<<<< HEAD
   project_url TEXT := 'https://supabase.com/dashboard/project/egdckybzxphxwtddbzkj';
   service_role_key TEXT := 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVnZGNreWJ6eHBoeHd0ZGRiemtqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDczMjExNjksImV4cCI6MjA2Mjg5NzE2OX0.YqVFevfrOn5RRqyuzAfIFB8SOxNzZTa7s9Z9AOwv5qE'; -- full access needed for http request to storage
-=======
-  project_url TEXT := env('SUPABASE_URL');
-  service_role_key TEXT := env('SUPABASE_SERVICE_ROLE_KEY'); -- full access needed for http request to storage
->>>>>>> 32cc6e6b167390703717fc3761401056679f2a45
   url TEXT := project_url || '/storage/v1/object/' || bucket || '/' || object;
 BEGIN
   SELECT
