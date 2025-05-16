@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS profiles (
     openai_api_key TEXT CHECK (char_length(openai_api_key) <= 1000),
     openai_organization_id TEXT CHECK (char_length(openai_organization_id) <= 1000),
     perplexity_api_key TEXT CHECK (char_length(perplexity_api_key) <= 1000)
+    azure_openai_embeddings_id TEXT CHECK (char_length(azure_openai_embeddings_id) <= 1000),
 );
 
 -- INDEXES --
